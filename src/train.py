@@ -34,3 +34,10 @@ writer = SummaryWriter(log_dir=LOG_DIR.joinpath(MODEL_NAME))
 writer.add_hparams({"input_dim": INPUT_DIM, "hidden_dim": HIDDEN_DIM, "latent_dim": LATENT_DIM,
                     "batch_size": BATCH_SIZE, "nb_epochs": NB_EPOCHS, "learning_rate": LEARNING_RATE,},
                     {})
+
+# TODO :
+# Load dataloaders
+# Initialize model and optimizer
+# Training loop
+# Save model
+# Close TensorBoard writer
