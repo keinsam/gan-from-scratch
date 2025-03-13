@@ -4,6 +4,7 @@ import torch
 from tqdm import tqdm
 from torch import nn, optim
 from torch.utils.tensorboard import SummaryWriter
+from dataset import get_dataloaders
 from model import GAN
 
 # Load hyperparameters
@@ -35,8 +36,10 @@ writer.add_hparams({"input_dim": INPUT_DIM, "hidden_dim": HIDDEN_DIM, "latent_di
                     "batch_size": BATCH_SIZE, "nb_epochs": NB_EPOCHS, "learning_rate": LEARNING_RATE,},
                     {})
 
-# TODO :
 # Load dataloaders
+train_loader, test_loader = get_dataloaders(batch_size=BATCH_SIZE)
+
+# TODO :
 # Initialize model and optimizer
 # Training loop
 # Save model
