@@ -5,4 +5,7 @@ data/
 logs/
 
 # Trained Models
-models/
+weights/
+
+# Cache
+__pycache__
