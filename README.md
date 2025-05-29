@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains an implementation of **Generative Adversarial Networks (GAN)** using PyTorch, based on the original paper by **Goodfellow et al. (2014)** and later improvements such as DCGAN and training stabilization techniques.
+This repository contains an implementation of **Generative Adversarial Networks (GAN)** using PyTorch, based on the original paper by **Goodfellow et al. (2014)**, with improvements from later works such as DCGAN and various training stabilization techniques.
 
 ## Features
 
