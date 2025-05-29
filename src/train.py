@@ -31,8 +31,8 @@ def train_gan(
         for batch_idx, (real, _) in enumerate(tqdm(dataloader)):
             real = real.to(device)
             batch_size = real.size(0)
-            real_labels = torch.ones(batch_size, 1, device=device) * 0.9
-            fake_labels = torch.zeros(batch_size, 1, device=device) * 0.1
+            real_labels = torch.ones(batch_size, 1, device=device)
+            fake_labels = torch.zeros(batch_size, 1, device=device)
 
             # Train Discriminator
             noise = torch.randn(batch_size, generator.latent_dim, device=device)
