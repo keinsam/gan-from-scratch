@@ -1,3 +1,5 @@
 model_name : "gan_v0"
-model_dir : "models"
-log_dir : "logs"
+
+weights_dir : "weights"
+data_dir : "data"
+logs_dir : "logs"
