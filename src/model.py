@@ -18,7 +18,13 @@ class Discriminator(nn.Module):
         self.conv_to_output = nn.Sequential(nn.Linear(hidden_dim * 4 * 4, 1),
                                             nn.Sigmoid()) # nn.Tanh()
 
-    def _block(self, in_channels, out_channels, kernel_size=3, stride=1, padding=0):
+    def _block(self,
+               in_channels: int,
+               out_channels: int,
+               kernel_size: int = 3,
+               stride: int = 1,
+               padding=0
+               ) -> nn.Sequential:
         return nn.Sequential(
             nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, bias=False),
             nn.BatchNorm2d(out_channels),
@@ -30,7 +36,9 @@ class Discriminator(nn.Module):
             if isinstance(m, (nn.Conv2d, nn.ConvTranspose2d, nn.BatchNorm2d)):
                 nn.init.normal_(m.weight.data, 0.0, 0.02)
 
-    def forward(self, x):
+    def forward(self,
+                x: torch.Tensor
+                ) -> torch.Tensor:
         x = self.block1(x)
         x = self.block2(x)
         x = self.block3(x)
@@ -40,20 +48,31 @@ class Discriminator(nn.Module):
 
 
 class Generator(nn.Module):
-    def __init__(self, channel_dim: int = 3, hidden_dim: int = 64, latent_dim: int = 128):
+    def __init__(self,
+                 channel_dim: int = 3,
+                 hidden_dim: int = 64,
+                 latent_dim: int = 128
+                ) -> None:
         super().__init__()
         self.channel_dim = channel_dim
         self.hidden_dim = hidden_dim
         self.latent_dim = latent_dim
 
         self.latent_to_conv = nn.Linear(latent_dim, hidden_dim * 4 * 4)
-        self.block1 = self._block(hidden_dim, hidden_dim // 2, kernel_size=3, stride=2, padding=1)
-        self.block2 = self._block(hidden_dim // 2, hidden_dim // 4, kernel_size=3, stride=2, padding=1)
-        self.block3 = self._block(hidden_dim // 4, channel_dim, kernel_size=3, stride=2, padding=1)
+        self.block1 = self._block(hidden_dim, hidden_dim // 2, kernel_size=3, stride=2, padding=1, output_padding=1)
+        self.block2 = self._block(hidden_dim // 2, hidden_dim // 4, kernel_size=3, stride=2, padding=1, output_padding=1)
+        self.block3 = self._block(hidden_dim // 4, channel_dim, kernel_size=3, stride=2, padding=1, output_padding=1)
 
-    def _block(self, in_channels, out_channels, kernel_size=3, stride=1, padding=0):
+    def _block(self,
+               in_channels: int,
+               out_channels: int,
+               kernel_size: int = 3,
+               stride: int = 1,
+               padding: int = 0,
+               output_padding: int =0
+               ) -> nn.Sequential:
         return nn.Sequential(
-            nn.ConvTranspose2d(in_channels, out_channels, kernel_size, stride, padding, bias=False),
+            nn.ConvTranspose2d(in_channels, out_channels, kernel_size, stride, padding, output_padding, bias=False),
             nn.BatchNorm2d(out_channels),
             nn.LeakyReLU(0.2),
         )
@@ -63,7 +82,9 @@ class Generator(nn.Module):
             if isinstance(m, (nn.Conv2d, nn.ConvTranspose2d, nn.BatchNorm2d)):
                 nn.init.normal_(m.weight.data, 0.0, 0.02)
 
-    def forward(self, z):
+    def forward(self,
+                z: torch.Tensor
+                ) -> torch.Tensor:
         x = self.latent_to_conv(z)
         x = x.view(-1, self.hidden_dim, 4, 4)
         x = self.block1(x)
