@@ -2,38 +2,29 @@
 
 ## Overview
 
-This repository contains an implementation of **Generative Adversarial Networks (GAN)** using PyTorch, based on the original paper by **Goodfellow et al. (2014)**.
+This repository contains an implementation of **Generative Adversarial Networks (GAN)** using PyTorch, based on the original paper by **Goodfellow et al. (2014)** and later improvements such as DCGAN and training stabilization techniques.
 
 ## Features
 
 - Implementation of a **GAN** in PyTorch.
-- Training on the **MNIST dataset**.
+- Training on the **MNIST and CIFAR10** datasets.
 - Logging with TensorBoard.
-- Generation of images with visualization in Plotly.
 
 ## Usage
 
-### Training
 To train the GAN, run:
 ```bash
-python train.py
+python run.py
 ```
 This script will:
 - Train the model.
 - Save the trained model in `MODEL_DIR`.
-- Log the loss values in TensorBoard.
+- Log the loss values and generated samples in TensorBoard.
 
-To see the plotted loss functions, run ```tensorboard --logdir=logs``` in the terminal.
-
-### Inference
-To visualize generated images from the trained model, run:
-```bash
-python infer.py
-```
-This script will:
-- Load the trained model.
-- Display generated images.
+To see the plotted loss functions and generated samples, run ```tensorboard --logdir=logs``` in the terminal.
 
 ## References
 
 - **Generative Adversarial Networks** – Goodfellow et al. (2014) [[Paper](https://arxiv.org/abs/1406.2661)]
+- **Unsupervised Representation Learning with Deep Convolutional GANs (DCGAN)** – Radford et al. (2015) [[Paper](https://arxiv.org/abs/1511.06434)]
+- **Improved Techniques for Training GANs** – Salimans et al. (2016) [[Paper](https://arxiv.org/abs/1606.03498)]
